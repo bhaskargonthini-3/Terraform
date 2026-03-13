@@ -1,6 +1,6 @@
 resource "aws_opensearch_domain" "main" {
 
-  domain_name = "int-nam-poc-es-clst"
+  domain_name    = "int-nam-poc-es-clst"
   engine_version = "Elasticsearch_7.10"
 
   cluster_config {
@@ -28,12 +28,18 @@ resource "aws_opensearch_domain" "main" {
   }
 
   domain_endpoint_options {
-    enforce_https = true
+    enforce_https       = true
     tls_security_policy = "Policy-Min-TLS-1-0-2019-07"
   }
 
   access_policies = <<POLICY
 {"Version":"2012-10-17","Statement":[{"Effect":"Allow","Principal":{"AWS":"*"},"Action":"es:*","Resource":"arn:aws:es:us-west-2:023670702506:domain/int-nam-poc-es-clst/*"}]}
 POLICY
+
+  tags = {
+    Project = "Batch-IRIS"
+    Customer = "INTERNAL-UTILITY"
+  }
+
 
 }
